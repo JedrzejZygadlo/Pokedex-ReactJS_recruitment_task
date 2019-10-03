@@ -1,10 +1,10 @@
 import React from 'react';
-
+import PokemonList from './PokemonList';
 
 function App() {
   return (
-    <div >
-      App
+    <div>
+      <PokemonList />
     </div>
   );
 }
