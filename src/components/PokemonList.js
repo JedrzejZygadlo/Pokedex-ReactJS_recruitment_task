@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Icon from './Icon'
 import { fetchPokemons } from '../actions';
+import './PokemonList.css'
 
 class PokemonList extends React.Component{
     componentDidMount(){
@@ -14,6 +15,7 @@ class PokemonList extends React.Component{
     }
     renderPokemons(){
         console.log(this.props.pokemons);
+        
         return this.props.pokemons.map(pokemon => {
             return(
                 <div key={pokemon.id}>
@@ -30,10 +32,8 @@ class PokemonList extends React.Component{
             return <div>Loading</div>;
         }
         return(
-            <div>
-                
-                {this.renderPokemons()}
-                
+            <div className="columns">    
+                {this.renderPokemons()}     
             </div>
             )   
         }   
