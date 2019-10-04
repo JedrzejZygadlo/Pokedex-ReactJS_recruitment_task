@@ -1,11 +1,12 @@
 import React from 'react';
+import { Container } from 'reactstrap'
 import PokemonList from './PokemonList';
 
 function App() {
   return (
-    <div>
+    <Container className="mt-4">
       <PokemonList />
-    </div>
+    </Container>
   );
 }
 

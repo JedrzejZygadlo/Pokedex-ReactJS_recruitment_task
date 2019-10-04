@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Icon from './Icon'
 import { fetchPokemons } from '../actions';
 import OnePokemonInList from './OnePokemonInList';
-import './PokemonList.css'
+import '../assets/PokemonList.css'
 
 class PokemonList extends React.Component{
     componentDidMount(){
