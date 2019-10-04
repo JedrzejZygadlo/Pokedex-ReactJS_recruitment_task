@@ -1,5 +1,4 @@
-const NumberOfPages = (allPokemonsCount, pokemonsOnPage) => {
-    const pages = Math.ceil(allPokemonsCount/pokemonsOnPage);
-    return pages;
+const numberOfPages = (allPokemonsCount, pokemonsOnPage) => {
+    return Math.ceil(allPokemonsCount / pokemonsOnPage);
 }
-export default NumberOfPages;
+export default numberOfPages;
