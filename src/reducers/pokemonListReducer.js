@@ -7,7 +7,9 @@ export default (state = { pokemons: {}, isLoading: true }, action) => {
         case FETCH_POKEMONS_PAGE_STARTED:
             return {...state, isLoading: true}
         case FETCH_POKEMONS_PAGE_SUCCESS:
-            return {...state, isLoading: false, pokemons: action.payload.map(pokemon => {
+        
+            return {...state, isLoading: false, allPokemonsCount: action.payload.headers['x-total-count'] , 
+                pokemons: action.payload.data.map(pokemon => {
                 return {
                     id: pokemon.id,
                     num: pokemon.num,

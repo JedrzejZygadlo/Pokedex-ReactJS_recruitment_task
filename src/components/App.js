@@ -8,7 +8,6 @@ function App() {
   return (
     <div>
     <BrowserRouter>
-      <PaginationBox />
       <Container className="mt-4">
         <Switch>  
           <Route path="/" exact component= {PokemonList} />

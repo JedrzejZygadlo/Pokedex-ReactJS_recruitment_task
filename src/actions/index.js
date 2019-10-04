@@ -15,7 +15,8 @@ export const fetchPokemonsPage = (page) => async dispatch => {
     try {
         dispatch({ type: FETCH_POKEMONS_PAGE_STARTED});
         const response = await pokemonApi.get(`/pokemon?_page=${page}&_limit=20`);
-        dispatch({ type: FETCH_POKEMONS_PAGE_SUCCESS, payload: response.data});
+        console.log(response);
+        dispatch({ type: FETCH_POKEMONS_PAGE_SUCCESS, payload: response});
     } catch(err) {
         dispatch({ type: FETCH_POKEMONS_PAGE_FAILED, payload: err});
     }

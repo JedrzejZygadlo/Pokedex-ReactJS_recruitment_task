@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import Icon from './Icon'
 import { fetchPokemonsPage } from '../actions';
 import OnePokemonInList from './OnePokemonInList';
+import PaginationBox from './PaginationBox';
 import '../assets/PokemonList.css'
 
 class PokemonList extends React.Component{
@@ -26,14 +27,18 @@ class PokemonList extends React.Component{
             return <div> Error: {this.props.error.message} </div>
         }
         return(
-            <div className="columns">    
-                {this.renderPokemons()}     
+            <div>
+                <PaginationBox currentPage={this.props.match.params.page || 1} allPokemonsCount={this.props.allPokemonsCount}/>
+                <div className="columns mt-2 mb-4">    
+                    {this.renderPokemons()}     
+                </div>
+                <PaginationBox currentPage={this.props.match.params.page || 1} allPokemonsCount={this.props.allPokemonsCount}/>
             </div>
             )   
         }   
         
 }
 const mapStateToProps = (state) => {
-    return { pokemons: state.pokemonList.pokemons, loading: state.pokemonList.isLoading, error: state.pokemonList.error}
+    return { pokemons: state.pokemonList.pokemons, loading: state.pokemonList.isLoading, error: state.pokemonList.error, allPokemonsCount: state.pokemonList.allPokemonsCount}
 }
 export default connect(mapStateToProps,{ fetchPokemonsPage })(PokemonList);
