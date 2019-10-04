@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Icon from './Icon'
-import { fetchPokemons } from '../actions';
+import { fetchPokemonsPage } from '../actions';
 import OnePokemonInList from './OnePokemonInList';
 import '../assets/PokemonList.css'
 
 class PokemonList extends React.Component{
     componentDidMount(){
-        this.props.fetchPokemons();
+        this.props.fetchPokemonsPage(this.props.match.params.page || 1);
     }
     renderTypes = (types) => {
         return types.map(type => {
@@ -15,12 +15,15 @@ class PokemonList extends React.Component{
         })
     }
     renderPokemons(){
-        return this.props.pokemons.map(pokemon => <OnePokemonInList pokemon={pokemon} />);
+        return this.props.pokemons.map(pokemon => <OnePokemonInList pokemon={pokemon} key={pokemon.id}/>);
     }
     
     render(){
-        if (!this.props.pokemons.length) {
-            return <div>Loading</div>;
+        if (this.props.loading) {
+            return <div> Loading </div>;
+        }
+        if(this.props.error){
+            return <div> Error: {this.props.error.message} </div>
         }
         return(
             <div className="columns">    
@@ -31,7 +34,6 @@ class PokemonList extends React.Component{
         
 }
 const mapStateToProps = (state) => {
-    console.log(state.pokemons);
-    return { pokemons: state.pokemons}
+    return { pokemons: state.pokemonList.pokemons, loading: state.pokemonList.isLoading, error: state.pokemonList.error}
 }
-export default connect(mapStateToProps,{ fetchPokemons })(PokemonList);
+export default connect(mapStateToProps,{ fetchPokemonsPage })(PokemonList);

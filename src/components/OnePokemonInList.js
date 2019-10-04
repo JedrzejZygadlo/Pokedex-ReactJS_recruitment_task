@@ -1,11 +1,11 @@
 import React from 'react';
 import Icon from './Icon'
-import {Row, Col, Container, Card, CardImg,CardBody, CardTitle } from 'reactstrap';
+import { Row, Col, Container, Card, CardImg,CardBody } from 'reactstrap';
 
-export const renderTypes = (types) => {
+export const renderTypes = (types,id) => {
     return types.map(type => {
         return (
-        <Col xs="3" sm="6">
+        <Col xs="3" sm="6" key={`${id}-${type}`}>
             <Icon iconType = {type} />
         </Col>
         )
@@ -18,8 +18,8 @@ const OnePokemonInList = (props) => {
                     <CardImg className="mx-auto img-width" src={img} alt={id}/>
                     <CardBody>
                     <h5 className="mt-2">#{num} {name}</h5>
-                    <Container fluid key={id}>
-                        <Row className="justify-content-center">{renderTypes(type)}</Row>
+                    <Container fluid>
+                        <Row className="justify-content-center">{renderTypes(type,id)}</Row>
                     </Container>
                     </CardBody>
             </Card>
