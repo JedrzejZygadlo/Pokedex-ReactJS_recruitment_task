@@ -2,7 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import Icon from './Icon'
 import { fetchPokemons } from '../actions';
-import './PokemonList.css'
+import OnePokemonInList from './OnePokemonInList';
+import '../assets/PokemonList.css'
 
 class PokemonList extends React.Component{
     componentDidMount(){
@@ -14,17 +15,7 @@ class PokemonList extends React.Component{
         })
     }
     renderPokemons(){
-        console.log(this.props.pokemons);
-        
-        return this.props.pokemons.map(pokemon => {
-            return(
-                <div key={pokemon.id}>
-                    <img src={pokemon.img} alt={pokemon.id}/>
-                    <h1>#{pokemon.num} {pokemon.name}</h1>
-                    {this.renderTypes(pokemon.type)}
-                </div>
-            )
-        })
+        return this.props.pokemons.map(pokemon => <OnePokemonInList pokemon={pokemon} />);
     }
     
     render(){
