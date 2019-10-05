@@ -1,3 +1,22 @@
 .pagination{
     justify-content: center;
 }
+
+@media (max-width: 576px) {
+    .pagination {
+        display: grid;
+        grid-template-columns: repeat(6,60px);
+        padding: 0;
+    }
+    
+}
+@media (max-width: 768px) { 
+    .pagination {
+        display: grid;
+        grid-template-columns: repeat(5,60px);
+        padding: 0;
+    }
+    .pagination-top {
+        display: none;
+    }
+}

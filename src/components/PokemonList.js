@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Icon from './Icon'
-import { fetchPokemonsPage } from '../actions';
+import { fetchPokemonsPage, displayModal } from '../actions';
 import OnePokemonInList from './OnePokemonInList';
 import PaginationBox from './PaginationBox';
 import '../assets/PokemonList.css'
+import PokemonModal from './PokemonModal';
 
 class PokemonList extends React.Component{
     componentDidMount(){
@@ -15,8 +16,11 @@ class PokemonList extends React.Component{
             return <Icon iconType={type}/>
         })
     }
+    handleClick = (id) => {
+        this.props.displayModal(id);
+    }
     renderPokemons(){
-        return this.props.pokemons.map(pokemon => <OnePokemonInList pokemon={pokemon} key={pokemon.id}/>);
+        return this.props.pokemons.map(pokemon => <div onClick={() => this.handleClick(pokemon.id)}><OnePokemonInList pokemon={pokemon} key={pokemon.id}/></div>);
     }
     
     render(){
@@ -28,7 +32,8 @@ class PokemonList extends React.Component{
         }
         return(
             <div>
-                <PaginationBox currentPage={this.props.match.params.page || 1} allPokemonsCount={this.props.allPokemonsCount}/>
+                <PokemonModal />
+                <PaginationBox cl="pagination-top" currentPage={this.props.match.params.page || 1} allPokemonsCount={this.props.allPokemonsCount}/>
                 <div className="columns mt-2 mb-4">    
                     {this.renderPokemons()}     
                 </div>
@@ -41,4 +46,4 @@ class PokemonList extends React.Component{
 const mapStateToProps = (state) => {
     return { pokemons: state.pokemonList.pokemons, loading: state.pokemonList.isLoading, error: state.pokemonList.error, allPokemonsCount: state.pokemonList.allPokemonsCount}
 }
-export default connect(mapStateToProps,{ fetchPokemonsPage })(PokemonList);
+export default connect(mapStateToProps,{ fetchPokemonsPage, displayModal })(PokemonList);

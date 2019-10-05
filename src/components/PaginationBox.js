@@ -17,13 +17,13 @@ const renderPages = (currentPage) => {
 }
 
 const PaginationBox = (props) => {
-    console.log(props.currentPage);
     const pokemonsOnPage = 20;
     const maxpage = numberOfPages(props.allPokemonsCount,pokemonsOnPage)
     const prevPage = Number(props.currentPage) - 1;
     const nextPage = Number(props.currentPage) + 1;
+    
     return(
-     <Pagination size="lg" aria-label="Page navigation">
+     <Pagination className={props.cl} size="lg" aria-label="Page navigation">
         <PaginationItem disabled={props.currentPage <= 1}>
           <PaginationLink first href="/pokemons/1" />
         </PaginationItem>

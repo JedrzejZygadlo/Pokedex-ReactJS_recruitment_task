@@ -6,7 +6,7 @@ export const renderTypes = (types,id) => {
     return types.map(type => {
         return (
         <Col xs="3" sm="6" key={`${id}-${type}`}>
-            <Icon iconType = {type} />
+                <Icon iconType = {type} />     
         </Col>
         )
     })};
