@@ -5,7 +5,7 @@ import { Row, Col, Container, Card, CardImg,CardBody } from 'reactstrap';
 export const renderTypes = (types,id) => {
     return types.map(type => {
         return (
-        <Col xs="3" sm="6" key={`${id}-${type}`}>
+        <Col xs="4" sm="6" key={`${id}-${type}`}>
                 <Icon iconType = {type} />     
         </Col>
         )

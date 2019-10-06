@@ -5,9 +5,9 @@ import {
     PaginationLink
 } from 'reactstrap';
 import '../assets/PaginationBox.css';
-import numberOfPages from '../assets/numberOfPages.js';
-const renderPages = (currentPage) => {
-    return [...Array(8)].map((page, i) => 
+
+const renderPages = (currentPage, maxPages) => {
+    return [...Array(maxPages)].map((page, i) =>
               <PaginationItem active={i === currentPage-1} key={i}>
                 <PaginationLink href={`/pokemons/${i+1}`}>
                   {i+1}
@@ -16,26 +16,24 @@ const renderPages = (currentPage) => {
     )
 }
 
-const PaginationBox = (props) => {
-    const pokemonsOnPage = 20;
-    const maxpage = numberOfPages(props.allPokemonsCount,pokemonsOnPage)
-    const prevPage = Number(props.currentPage) - 1;
-    const nextPage = Number(props.currentPage) + 1;
+const PaginationBox = ({maxPages, currentPage,cl}) => {
+    const prevPage = Number(currentPage) - 1;
+    const nextPage = Number(currentPage) + 1;
     
     return(
-     <Pagination className={props.cl} size="lg" aria-label="Page navigation">
-        <PaginationItem disabled={props.currentPage <= 1}>
+     <Pagination className={cl} size="lg" aria-label="Page navigation">
+        <PaginationItem disabled={currentPage <= 1}>
           <PaginationLink first href="/pokemons/1" />
         </PaginationItem>
         <PaginationItem disabled={prevPage <= 0}>
           <PaginationLink previous href={`/pokemons/${prevPage}`} />
         </PaginationItem>
-            {renderPages(props.currentPage)}
-        <PaginationItem disabled={nextPage > maxpage} >
+            {renderPages(currentPage,maxPages)}
+        <PaginationItem disabled={nextPage > maxPages} >
           <PaginationLink next href={`/pokemons/${nextPage}`} />
         </PaginationItem>
-        <PaginationItem disabled={props.currentPage >= maxpage}>
-          <PaginationLink last href="/pokemons/8" />
+        <PaginationItem disabled={currentPage >= maxPages}>
+          <PaginationLink last href={`/pokemons/${maxPages}`} />
         </PaginationItem>
       </Pagination>
      )

@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import SinglePokemonInfo from './SinglePokemonInfo';
 
 class PokemonModal extends React.Component {
-    componentDidMount(){
-      console.log('jestem');
-    }
     render(){
         if(this.props.modal){
           return(
