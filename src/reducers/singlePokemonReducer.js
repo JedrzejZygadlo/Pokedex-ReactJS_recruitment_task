@@ -1,5 +1,4 @@
-import { FETCH_SINGLE_POKEMON_STARTED, FETCH_SINGLE_POKEMON_SUCCESS, FETCH_SINGLE_POKEMON_FAILED, DISPLAY_MODAL, HIDE_MODAL } from '../actions';
-
+import { FETCH_SINGLE_POKEMON_STARTED, FETCH_SINGLE_POKEMON_SUCCESS, FETCH_SINGLE_POKEMON_FAILED, DISPLAY_MODAL, HIDE_MODAL } from '../actions/actionTypes';
 
 export default (state = { isLoading: false, modal: false }, action) => {
     console.log(state)

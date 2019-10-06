@@ -11,8 +11,8 @@ export const renderTypes = (types,id) => {
         )
     })};
 
-const OnePokemonInList = (props) => {
-    const { id, img, num, name, type} = props.pokemon;
+const OnePokemonInList = ({pokemon}) => {
+    const { id, img, num, name, type} = pokemon;
     return(
             <Card body outline color="secondary" className="text-center">
                     <CardImg className="mx-auto img-width" src={img} alt={id}/>
@@ -25,5 +25,4 @@ const OnePokemonInList = (props) => {
             </Card>
         )
 }
-
-export default OnePokemonInList;
+export default OnePokemonInList;  

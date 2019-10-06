@@ -2,6 +2,11 @@
     justify-content: center;
 }
 
+.page-item.active .page-link {
+    background-color: #36538B;
+    border-color: #36538B;
+}
+
 @media (max-width: 576px) {
     .pagination {
         display: grid;

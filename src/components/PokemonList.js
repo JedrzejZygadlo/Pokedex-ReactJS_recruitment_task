@@ -1,63 +1,70 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import Icon from './Icon'
+import { Spinner, Alert } from 'reactstrap';
 import { fetchPokemonsPage, displayModal } from '../actions';
 import OnePokemonInList from './OnePokemonInList';
 import PaginationBox from './PaginationBox';
 import PokemonModal from './PokemonModal';
 import history from '../history';
 import numberOfPages from '../assets/numberOfPages.js';
-import '../assets/PokemonList.css'
+import '../assets/PokemonList.css';
+import '../assets/Spinner.css';
 
 class PokemonList extends React.Component{
     componentDidMount(){
-        this.props.fetchPokemonsPage(this.props.match.params.page || 1);
+        const {page}  = this.props.match.params;
+        this.props.fetchPokemonsPage(page || 1);
     }
     componentDidUpdate(prevProps) {
-            // will be true
+            const {page}  = this.props.match.params;
             const locationChanged = this.props.location !== prevProps.location;
             if(locationChanged){
-                this.props.fetchPokemonsPage(this.props.match.params.page || 1);
+                this.props.fetchPokemonsPage(page || 1);
             }
     }
     handleClick = (id) => {
         this.props.displayModal(id);
     }
     renderPokemons(){
-        return this.props.pokemons.map(pokemon => <div onClick={() => this.handleClick(pokemon.id)} key={pokemon.id}><OnePokemonInList pokemon={pokemon}/></div>);
+        const { pokemons } = this.props;
+        return pokemons.map(pokemon => <div onClick={() => this.handleClick(pokemon.id)} key={pokemon.id}><OnePokemonInList pokemon={pokemon}/></div>);
     }
-    checkInvalidRoutes(maxPages) {
-        if (this.props.match.params.page <= 0 || isNaN(Number(this.props.match.params.page))) {
+    checkInvalidRoutes(maxPages,page) {
+        if (page <= 0 || isNaN(Number(page))) {
             history.push('/pokemons/1');
         }
-        if(this.props.match.params.page > maxPages){
+        if(page > maxPages){
             history.push(`/pokemons/${maxPages}`);
         }
     }
     render(){
+        const {page}  = this.props.match.params;
+        const { loading, error} = this.props;
         const pokemonsOnPage = 20;
         const maxPages = numberOfPages(this.props.allPokemonsCount, pokemonsOnPage);
-        this.checkInvalidRoutes(maxPages)
-        if (this.props.loading) {
-            return <div> Loading </div>;
+        this.checkInvalidRoutes(maxPages,page)
+        
+        if (loading) {
+            return <Spinner className="custom-spinner" color="primary"/>;
+        
         }
-        if(this.props.error){
-            return <div> Error: {this.props.error.message} </div>
+        if(error){
+            return <Alert color="danger"> {error.message} </Alert>
         }
         return(
             <div>
                 <PokemonModal />
-                <PaginationBox cl="pagination-top" currentPage={this.props.match.params.page || 1} maxPages={maxPages}/>
+                <PaginationBox cl="pagination-top" currentPage={page || 1} maxPages={maxPages}/>
                 <div className="columns mt-2 mb-4">    
                     {this.renderPokemons()}     
                 </div>
-                <PaginationBox currentPage={this.props.match.params.page || 1} maxPages={maxPages}/>
+                <PaginationBox currentPage={page || 1} maxPages={maxPages}/>
             </div>
             )   
         }   
         
 }
-const mapStateToProps = (state) => {
-    return { pokemons: state.pokemonList.pokemons, loading: state.pokemonList.isLoading, error: state.pokemonList.error, allPokemonsCount: state.pokemonList.allPokemonsCount}
+const mapStateToProps = ({pokemonList}) => {
+    return { pokemons: pokemonList.pokemons, loading: pokemonList.isLoading, error: pokemonList.error, allPokemonsCount: pokemonList.allPokemonsCount}
 }
 export default connect(mapStateToProps,{ fetchPokemonsPage, displayModal })(PokemonList);

@@ -14,10 +14,10 @@ class PokemonModal extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({singlePokemon}) => {
     return {
-        modal: state.singlePokemon.modal,
-        modalId: state.singlePokemon.modalid
+        modal: singlePokemon.modal,
+        modalId: singlePokemon.modalid
     }
 }
 

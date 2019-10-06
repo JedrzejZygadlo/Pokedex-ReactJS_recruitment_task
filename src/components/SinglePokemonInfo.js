@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Modal, ModalHeader, ModalBody, Container, Row, Col} from 'reactstrap';
+import { Modal, ModalHeader, ModalBody, Container, Row, Col, Spinner} from 'reactstrap';
 import { fetchSinglePokemon, hideModal } from '../actions';
 import Icon from './Icon';
 import '../assets/Modal.css';
+import '../assets/Spinner.css';
+
 class SinglePokemonInfo extends React.Component {
     componentDidMount(){
        this.props.fetchSinglePokemon(this.props.modalid);
@@ -29,15 +31,13 @@ class SinglePokemonInfo extends React.Component {
         )
     })};
     render(){
-        
-        if(this.props.loading){
+        const { loading, singlePokemon } = this.props;
+        if(loading){
             return(
-                <div>
-                    Loading
-                </div>
+                <Spinner className="custom-spinner" color="primary" />
             )
         }
-        if(this.props.singlePokemon){
+        if(singlePokemon){
             const { id, num, name, img, type, egg, candy, candy_count, height, weight, spawn_chance, spawn_time, weaknesses} = this.props.singlePokemon;
             return(
                 
@@ -113,13 +113,13 @@ class SinglePokemonInfo extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({singlePokemon}) => {
     return {
-        loading: state.singlePokemon.isLoading,
-        error: state.singlePokemon.error,
-        singlePokemon: state.singlePokemon.pokemonInfo,
-        modal: state.singlePokemon.modal,
-        modalid: state.singlePokemon.modalid
+        loading: singlePokemon.isLoading,
+        error: singlePokemon.error,
+        singlePokemon: singlePokemon.pokemonInfo,
+        modal: singlePokemon.modal,
+        modalid: singlePokemon.modalid
     }
 }
 

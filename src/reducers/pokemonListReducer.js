@@ -1,4 +1,4 @@
-import { FETCH_POKEMONS_PAGE_STARTED, FETCH_POKEMONS_PAGE_SUCCESS, FETCH_POKEMONS_PAGE_FAILED } from '../actions';
+import { FETCH_POKEMONS_PAGE_STARTED, FETCH_POKEMONS_PAGE_SUCCESS, FETCH_POKEMONS_PAGE_FAILED } from '../actions/actionTypes';
 
 
 export default (state = { pokemons: {}, isLoading: true }, action) => {
@@ -7,8 +7,7 @@ export default (state = { pokemons: {}, isLoading: true }, action) => {
         case FETCH_POKEMONS_PAGE_STARTED:
             return {...state, isLoading: true}
         case FETCH_POKEMONS_PAGE_SUCCESS:
-        
-            return {...state, isLoading: false, allPokemonsCount: action.payload.headers['x-total-count'] , 
+            return {...state, isLoading: false, allPokemonsCount: action.payload.headers['x-total-count'],
                 pokemons: action.payload.data.map(pokemon => {
                 return {
                     id: pokemon.id,
@@ -17,8 +16,7 @@ export default (state = { pokemons: {}, isLoading: true }, action) => {
                     img: pokemon.img,
                     type: pokemon.type
                 }
-            }),
-            
+            }),       
         }
         case FETCH_POKEMONS_PAGE_FAILED:
             return {...state,isLoading: false, error: action.payload}
