@@ -1,22 +1,20 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 import SinglePokemonInfo from './SinglePokemonInfo';
 
-class PokemonModal extends React.Component {
-  render() {
-    if (this.props.modal) {
-      return <SinglePokemonInfo />;
-    }
-    return null;
-  }
-}
+const PokemonModal = () => {
+  const singlePokemon = useSelector(state => state.singlePokemon);
+  const { modal } = singlePokemon;
+  let content;
 
-const mapStateToProps = ({ singlePokemon }) => {
-  return {
-    modal: singlePokemon.modal,
-    modalId: singlePokemon.modalid
-  };
+  if (modal) {
+    content = <SinglePokemonInfo />;
+  } else {
+    content = null;
+  }
+
+  return content;
 };
 
-export default connect(mapStateToProps)(PokemonModal);
+export default PokemonModal;

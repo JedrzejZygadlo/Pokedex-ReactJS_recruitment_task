@@ -4,6 +4,7 @@
     "rules": {
         "no-console": "off",
         "prettier/prettier": "error",
+        "function-paren-newline": ["error", "always"],
         "no-unused-vars": "warn"
     }
 }

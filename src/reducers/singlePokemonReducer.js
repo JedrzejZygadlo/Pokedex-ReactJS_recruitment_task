@@ -6,7 +6,7 @@ import {
   HIDE_MODAL
 } from '../actions/actionTypes';
 
-export default (state = { isLoading: false, modal: false }, action) => {
+export default (state = { isLoading: true, modal: false }, action) => {
   switch (action.type) {
     case FETCH_SINGLE_POKEMON_STARTED:
       return { ...state, isLoading: true };
