@@ -24,7 +24,6 @@ export const fetchSinglePokemon = (id) => async dispatch => {
     try {
         dispatch({ type: FETCH_SINGLE_POKEMON_STARTED});
         const response = await pokemonApi.get(`/pokemon/${id}`);
-        console.log(response);
         dispatch({ type: FETCH_SINGLE_POKEMON_SUCCESS, payload: response.data});
     } catch(err) {
         dispatch({ type: FETCH_SINGLE_POKEMON_FAILED, payload: err});
