@@ -1,5 +1,6 @@
 .modal-open {
   overflow: scroll;
+  margin:0
 }
 
 @media (max-width: 576px) {
