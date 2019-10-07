@@ -3,6 +3,6 @@ import pokemonListReducer from './pokemonListReducer';
 import singlePokemonReducer from './singlePokemonReducer';
 
 export default combineReducers({
-    pokemonList: pokemonListReducer,
-    singlePokemon: singlePokemonReducer
-})
+  pokemonList: pokemonListReducer,
+  singlePokemon: singlePokemonReducer
+});

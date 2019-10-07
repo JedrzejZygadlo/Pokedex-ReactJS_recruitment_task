@@ -1,9 +1,9 @@
 .modal-open {
-    overflow: scroll;
+  overflow: scroll;
 }
 
 @media (max-width: 576px) {
-    .marginsInSmall {
-        margin: 0.5em 0;
-    }
+  .marginsInSmall {
+    margin: 0.5em 0;
+  }
 }
