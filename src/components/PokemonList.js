@@ -16,12 +16,15 @@ const PokemonList = props => {
   const { page } = props.match.params;
   const { fetchPokemonsPage } = props;
 
+  
   useEffect(() => {
     fetchPokemonsPage(page || 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
     fetchPokemonsPage(page || 1);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.location]);
 
   const checkInvalidRoutes = (maxPages, page) => {

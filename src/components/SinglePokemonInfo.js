@@ -20,6 +20,7 @@ const SinglePokemonInfo = props => {
   const { pokemonInfo, isLoading, modal, modalid } = singlePokemon;
   useEffect(() => {
     props.fetchSinglePokemon(modalid);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const renderWeaknesses = (weaknesses, id) => {
