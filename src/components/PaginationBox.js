@@ -2,35 +2,37 @@ import React from 'react';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 import '../assets/PaginationBox.css';
 
-const renderPages = (currentPage, maxPages) => {
-  return [...Array(maxPages)].map((page, i) => (
-    <PaginationItem active={i === currentPage - 1} key={i}>
-      <PaginationLink href={`/pokemons/${i + 1}`}>{i + 1}</PaginationLink>
-    </PaginationItem>
-  ));
-};
-
-const PaginationBox = ({ maxPages, currentPage, cl }) => {
+const PaginationBox = ({ maxPages, currentPage, cl, status, searchValue }) => {
   const prevPage = Number(currentPage) - 1;
   const nextPage = Number(currentPage) + 1;
-
+  if(status === 'search' || window.location.pathname.includes('search')){
+    var dest= `search/${searchValue}`
+  } else {
+    dest = 'pokemons'
+  }
   return (
     <Pagination className={cl} size="lg" aria-label="Page navigation">
       <PaginationItem disabled={currentPage <= 1}>
-        <PaginationLink first href="/pokemons/1" />
+        <PaginationLink first href={`/${dest}/1`} />
       </PaginationItem>
       <PaginationItem disabled={prevPage <= 0}>
-        <PaginationLink previous href={`/pokemons/${prevPage}`} />
+        <PaginationLink previous href={`/${dest}/${prevPage}`} />
       </PaginationItem>
-      {renderPages(currentPage, maxPages)}
+      {renderPages(currentPage, maxPages, dest)}
       <PaginationItem disabled={nextPage > maxPages}>
-        <PaginationLink next href={`/pokemons/${nextPage}`} />
+        <PaginationLink next href={`/${dest}/${nextPage}`} />
       </PaginationItem>
       <PaginationItem disabled={currentPage >= maxPages}>
-        <PaginationLink last href={`/pokemons/${maxPages}`} />
+        <PaginationLink last href={`/${dest}/${maxPages}`} />
       </PaginationItem>
     </Pagination>
   );
 };
-
+const renderPages = (currentPage, maxPages,dest) => {
+  return [...Array(maxPages)].map((page, i) => (
+    <PaginationItem active={i === currentPage - 1} key={i}>
+      <PaginationLink href={`/${dest}/${i + 1}`}>{i + 1}</PaginationLink>
+    </PaginationItem>
+  ));
+};
 export default PaginationBox;

@@ -14,6 +14,7 @@ function App() {
           <Switch>
             <Route path="/" exact component={PokemonList} />
             <Route path="/pokemons/:page" exact component={PokemonList} />
+            <Route path="/search/:searchValueParam/:page" exact component={PokemonList} />
           </Switch>
         </Container>
       </Router>

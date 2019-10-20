@@ -7,8 +7,22 @@ import {
   FETCH_SINGLE_POKEMON_SUCCESS,
   FETCH_SINGLE_POKEMON_FAILED,
   DISPLAY_MODAL,
-  HIDE_MODAL
+  HIDE_MODAL,
+  SET_POKEMON_LIST_STATUS,
+  FETCH_POKEMONS_BY_NAME,
+  FETCH_POKEMONS_BY_NAME_NO_RESULTS,
+  SET_SEARCH_VALUE
 } from './actionTypes';
+import history from '../history';
+
+export const fetchPokemonsByName = (name,page) => async dispatch => {
+    const response = await pokemonApi.get(`/pokemon?name_like=${name}&_page=${page}&_limit=20`);
+    if(response.data.length === 0){
+      dispatch({type :  FETCH_POKEMONS_BY_NAME_NO_RESULTS})
+    } else {
+      dispatch({type :  FETCH_POKEMONS_BY_NAME, payload: response})
+    }
+}
 
 export const fetchPokemonsPage = page => async dispatch => {
   try {
@@ -35,3 +49,13 @@ export const displayModal = id => {
 export const hideModal = () => {
   return { type: HIDE_MODAL };
 };
+
+export const setPokemonListStatus = (status,searchValue) => {
+  history.push(`/search/${searchValue}/1`);
+  return { type: SET_POKEMON_LIST_STATUS, payload: status }
+  
+};
+
+export const setSearchValueInStore = (value) => {
+  return { type: SET_SEARCH_VALUE, payload: value };
+}
