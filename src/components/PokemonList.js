@@ -1,7 +1,11 @@
 import React, { useEffect } from 'react';
 import { connect, useSelector } from 'react-redux';
 import { Spinner, Alert } from 'reactstrap';
-import { fetchPokemonsPage, displayModal, fetchPokemonsByName } from '../actions';
+import {
+  fetchPokemonsPage,
+  displayModal,
+  fetchPokemonsByName
+} from '../actions';
 import OnePokemonInList from './OnePokemonInList';
 import PaginationBox from './PaginationBox';
 import PokemonModal from './PokemonModal';
@@ -13,18 +17,25 @@ import '../assets/Spinner.css';
 
 const PokemonList = props => {
   const pokemonList = useSelector(state => state.pokemonList);
-  const { pokemons, isLoading, error, allPokemonsCount, status, searchValue } = pokemonList;
-  const { page,searchValueParam } = props.match.params;
+  const {
+    pokemons,
+    isLoading,
+    error,
+    allPokemonsCount,
+    status,
+    searchValue
+  } = pokemonList;
+  const { page, searchValueParam } = props.match.params;
   const { fetchPokemonsPage, fetchPokemonsByName } = props;
-  
+
   useEffect(() => {
-    if(status || window.location.pathname.includes('search')){     
-      fetchPokemonsByName(searchValueParam,page);
+    if (status || window.location.pathname.includes('search')) {
+      fetchPokemonsByName(searchValueParam, page);
     } else {
-      fetchPokemonsPage(page || 1);   
+      fetchPokemonsPage(page || 1);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [props.location]);
 
   const checkInvalidRoutes = (maxPages, page) => {
     if (page <= 0 || isNaN(Number(page))) {
@@ -42,7 +53,7 @@ const PokemonList = props => {
       </div>
     ));
   };
-  
+
   const pokemonsOnPage = 20;
   const maxPages = numberOfPages(allPokemonsCount, pokemonsOnPage);
   checkInvalidRoutes(maxPages, page);
@@ -56,20 +67,20 @@ const PokemonList = props => {
     content = (
       <div>
         <PokemonModal />
-        <Search searchValue={searchValue}/>
+        <Search searchValue={searchValue} />
         <PaginationBox
           cl="pagination-top"
           currentPage={page || 1}
           maxPages={maxPages}
-          status = {status}
-          searchValue = {searchValueParam}
+          status={status}
+          searchValue={searchValueParam}
         />
         <div className="columns mt-2 mb-4">{renderPokemons()}</div>
-        <PaginationBox 
-          currentPage={page || 1} 
-          maxPages={maxPages} 
-          status = {status} 
-          searchValue = {searchValueParam}
+        <PaginationBox
+          currentPage={page || 1}
+          maxPages={maxPages}
+          status={status}
+          searchValue={searchValueParam}
         />
       </div>
     );

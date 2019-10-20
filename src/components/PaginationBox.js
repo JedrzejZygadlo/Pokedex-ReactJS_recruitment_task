@@ -5,10 +5,10 @@ import '../assets/PaginationBox.css';
 const PaginationBox = ({ maxPages, currentPage, cl, status, searchValue }) => {
   const prevPage = Number(currentPage) - 1;
   const nextPage = Number(currentPage) + 1;
-  if(status === 'search' || window.location.pathname.includes('search')){
-    var dest= `search/${searchValue}`
+  if (status === 'search' || window.location.pathname.includes('search')) {
+    var dest = `search/${searchValue}`;
   } else {
-    dest = 'pokemons'
+    dest = 'pokemons';
   }
   return (
     <Pagination className={cl} size="lg" aria-label="Page navigation">
@@ -28,7 +28,7 @@ const PaginationBox = ({ maxPages, currentPage, cl, status, searchValue }) => {
     </Pagination>
   );
 };
-const renderPages = (currentPage, maxPages,dest) => {
+const renderPages = (currentPage, maxPages, dest) => {
   return [...Array(maxPages)].map((page, i) => (
     <PaginationItem active={i === currentPage - 1} key={i}>
       <PaginationLink href={`/${dest}/${i + 1}`}>{i + 1}</PaginationLink>

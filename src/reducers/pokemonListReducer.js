@@ -30,7 +30,7 @@ export default (state = { pokemons: {}, isLoading: true }, action) => {
     case FETCH_POKEMONS_PAGE_FAILED:
       return { ...state, isLoading: false, error: action.payload };
     case SET_POKEMON_LIST_STATUS:
-      return { ...state, status: action.payload};
+      return { ...state, status: action.payload };
     case FETCH_POKEMONS_BY_NAME:
       return {
         ...state,
@@ -47,9 +47,15 @@ export default (state = { pokemons: {}, isLoading: true }, action) => {
         })
       };
     case FETCH_POKEMONS_BY_NAME_NO_RESULTS:
-      return {...state, error: { message: 'there are no pokemon that names contain the search phrase' }};
-    case SET_SEARCH_VALUE: 
-      return { ...state, searchValue: action.payload};
+      return {
+        ...state,
+        isLoading: false,
+        error: {
+          message: 'There are no pokemon that names contain the search phrase'
+        }
+      };
+    case SET_SEARCH_VALUE:
+      return { ...state, searchValue: action.payload };
     default:
       return state;
   }
