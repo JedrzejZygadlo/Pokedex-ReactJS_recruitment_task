@@ -12,7 +12,8 @@ import {
   faCandyCane,
   faClock,
   faEgg,
-  faDiceSix
+  faDiceSix,
+  faSearch
 } from '@fortawesome/free-solid-svg-icons';
 import App from './components/App';
 import reducers from './reducers';
@@ -24,7 +25,8 @@ library.add(
   faCandyCane,
   faClock,
   faEgg,
-  faDiceSix
+  faDiceSix,
+  faSearch
 );
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

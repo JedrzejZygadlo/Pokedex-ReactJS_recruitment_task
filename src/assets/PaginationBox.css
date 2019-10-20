@@ -1,7 +1,9 @@
 .pagination {
   justify-content: center;
 }
-
+.pagination-top {
+  padding-top: 5em;
+}
 .page-item.active .page-link {
   background-color: #36538b;
   border-color: #36538b;
