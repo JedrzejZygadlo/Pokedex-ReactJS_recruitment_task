@@ -11,17 +11,22 @@ import {
   SET_POKEMON_LIST_STATUS,
   FETCH_POKEMONS_BY_NAME,
   FETCH_POKEMONS_BY_NAME_NO_RESULTS,
-  SET_SEARCH_VALUE
+  SET_SEARCH_VALUE,
+  FETCH_POKEMONS_BY_NAME_FAILED
 } from './actionTypes';
 import history from '../history';
 
 export const fetchPokemonsByName = (name,page) => async dispatch => {
+  try {
     const response = await pokemonApi.get(`/pokemon?name_like=${name}&_page=${page}&_limit=20`);
     if(response.data.length === 0){
       dispatch({type :  FETCH_POKEMONS_BY_NAME_NO_RESULTS})
     } else {
       dispatch({type :  FETCH_POKEMONS_BY_NAME, payload: response})
     }
+  } catch(err) {
+    dispatch({ type: FETCH_POKEMONS_BY_NAME_FAILED, payload: err });
+  }
 }
 
 export const fetchPokemonsPage = page => async dispatch => {

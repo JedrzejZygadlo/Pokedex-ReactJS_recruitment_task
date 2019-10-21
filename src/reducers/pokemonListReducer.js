@@ -5,7 +5,8 @@ import {
   SET_POKEMON_LIST_STATUS,
   FETCH_POKEMONS_BY_NAME,
   FETCH_POKEMONS_BY_NAME_NO_RESULTS,
-  SET_SEARCH_VALUE
+  SET_SEARCH_VALUE,
+  FETCH_POKEMONS_BY_NAME_FAILED
 } from '../actions/actionTypes';
 
 export default (state = { pokemons: {}, isLoading: true }, action) => {
@@ -17,6 +18,7 @@ export default (state = { pokemons: {}, isLoading: true }, action) => {
         ...state,
         isLoading: false,
         allPokemonsCount: action.payload.headers['x-total-count'],
+        pokemonsOnPage: 20,
         pokemons: action.payload.data.map(pokemon => {
           return {
             id: pokemon.id,
@@ -36,6 +38,7 @@ export default (state = { pokemons: {}, isLoading: true }, action) => {
         ...state,
         isLoading: false,
         allPokemonsCount: action.payload.headers['x-total-count'],
+        pokemonsOnPage: 20,
         pokemons: action.payload.data.map(pokemon => {
           return {
             id: pokemon.id,
@@ -54,6 +57,8 @@ export default (state = { pokemons: {}, isLoading: true }, action) => {
           message: 'There are no pokemon that names contain the search phrase'
         }
       };
+    case FETCH_POKEMONS_BY_NAME_FAILED:
+         return { ...state, isLoading: false, error: action.payload };
     case SET_SEARCH_VALUE:
       return { ...state, searchValue: action.payload };
     default:
