@@ -22,6 +22,7 @@ const PokemonList = props => {
     isLoading,
     error,
     allPokemonsCount,
+    pokemonsOnPage,
     status,
     searchValue
   } = pokemonList;
@@ -46,26 +47,25 @@ const PokemonList = props => {
     }
   };
 
-  const renderPokemons = () => {
-    return pokemons.map(pokemon => (
+  const renderPokemons = () => pokemons.map(pokemon => (
       <div onClick={() => props.displayModal(pokemon.id)} key={pokemon.id}>
         <OnePokemonInList pokemon={pokemon} />
       </div>
-    ));
-  };
-
-  const pokemonsOnPage = 20;
+  ));
   const maxPages = numberOfPages(allPokemonsCount, pokemonsOnPage);
   checkInvalidRoutes(maxPages, page);
-  let content;
 
-  if (isLoading) {
-    content = <Spinner className="custom-spinner" color="primary" />;
-  } else if (error || allPokemonsCount === 0) {
-    content = <Alert color="danger"> {error.message} </Alert>;
-  } else {
-    content = (
-      <div>
+  const renderContent = () => {
+    switch(true){
+      case isLoading:
+        return <Spinner className="custom-spinner" color="primary" />;
+      case error:
+        return <Alert color="danger"> {error.message} </Alert>;
+      case !allPokemonsCount:
+        return <Alert color="danger"> {error.message} </Alert>;
+      default:
+        return (
+          <div>
         <PokemonModal />
         <Search searchValue={searchValue} />
         <PaginationBox
@@ -83,10 +83,11 @@ const PokemonList = props => {
           searchValue={searchValueParam}
         />
       </div>
-    );
+        )
+    }
   }
 
-  return <>{content}</>;
+  return <>{renderContent()}</>;
 };
 
 export default connect(

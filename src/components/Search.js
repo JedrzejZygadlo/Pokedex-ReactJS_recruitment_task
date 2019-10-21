@@ -8,18 +8,16 @@ import {
 } from '../actions';
 import '../assets/Search.css';
 
-const Search = props => {
-  const {
-    setSearchValueInStore,
-    fetchPokemonsByName,
-    setPokemonListStatus,
-    searchValue
-  } = props;
+const Search = ({ setSearchValueInStore, fetchPokemonsByName, setPokemonListStatus, searchValue }) => {
   const handleSubmit = () => {
+    if (searchValue !== ''){
     fetchPokemonsByName(searchValue, 1);
     setPokemonListStatus('search', searchValue);
+    }
   };
-
+  const handleChange = (event) => {
+    setSearchValueInStore(event.target.value)
+  }
   return (
     <div className="rel">
       <form onSubmit={handleSubmit} className="searchBox">
@@ -28,8 +26,8 @@ const Search = props => {
           className="searchInput"
           type="text"
           placeholder="Pokemon name..."
-          onChange={e => setSearchValueInStore(e.target.value)}
-          value={searchValue}
+          onChange={event => handleChange(event)}
+          value={searchValue || ''}
         ></input>
         <button className="searchButton" type="submit">
           <FontAwesomeIcon icon={['fas', 'search']} size="1x" />
